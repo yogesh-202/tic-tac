@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+   "build": "next build && tsc --project tsconfig.server.json",
+    "start": "NODE_ENV=production node dist/server.mjs",
     "lint": "next lint",
     "server:build": "tsc --project tsconfig.server.json",
     "server:dev": "tsx watch server.mts",
