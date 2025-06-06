@@ -16,7 +16,7 @@ import { Copy, Users, Gamepad2, Trophy, RotateCcw } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import GameBoard from "@/components/game-board";
 import Chat from "@/components/chat";
-import type { GameState } from "@/types/game.mts";
+import type { GameState } from "@/types/game";
 
 export default function TicTacToeGame() {
   const socketRef = useRef<Socket | null>(null);

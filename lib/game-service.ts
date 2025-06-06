@@ -1,5 +1,5 @@
 import { Socket } from "socket.io-client";
-import type { GameState, Player } from "@/types/game.mts";
+import type { GameState, Player } from "@/types/game";
 
 export class GameService {
   private socket: Socket;
