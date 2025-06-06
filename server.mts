@@ -1,6 +1,6 @@
 import { createServer } from "http";
 import { Server } from "socket.io";
-import { GameState } from "./types/game";
+import { GameState } from "./types/game.mts";
 
 const httpServer = createServer();
 const io = new Server(httpServer, {
