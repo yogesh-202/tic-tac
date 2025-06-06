@@ -7,6 +7,6 @@
     "noEmit": false,
     "esModuleInterop": true
   },
-  "include": ["server.mts", "types/**/*.ts", "types/**/*.mts"],
+  "include": ["server.ts", "types/**/*.ts", "types/**/*.ts"],
   "exclude": ["node_modules"]
 }

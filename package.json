@@ -4,12 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-   "build": "next build && pnpm run server:build",
-    "start": "node dist/server.mjs",
+    "build": "next build && pnpm run server:build",
+    "start": "node dist/server.js",
     "lint": "next lint",
     "server:build": "tsc --project tsconfig.server.json",
-    "server:dev": "tsx watch server.mts",
-    "server:start": "node dist/server.mjs"
+    "server:dev": "tsx watch server.ts",
+    "server:start": "node dist/server.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
