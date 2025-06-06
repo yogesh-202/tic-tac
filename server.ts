@@ -2,7 +2,17 @@ import { createServer } from "http";
 import { Server } from "socket.io";
 import { GameState } from "./types/game";
 
-const httpServer = createServer();
+const httpServer = createServer((req, res) => {
+  // Health check endpoint
+  if (req.url === '/') {
+    res.writeHead(200);
+    res.end('Server is running');
+    return;
+  }
+  res.writeHead(404);
+  res.end();
+});
+
 const io = new Server(httpServer, {
   cors: {
     origin: ["http://localhost:3000", "https://tic-tac-toe-q7hg.onrender.com"],
@@ -144,7 +154,7 @@ io.on("connection", (socket) => {
   });
 });
 
-const PORT = process.env.PORT || 3001;
-httpServer.listen(PORT, () => {
+const PORT = parseInt(process.env.PORT || '3001', 10);
+httpServer.listen(PORT, '0.0.0.0', () => {
   console.log(`Server running on port ${PORT}`);
 });
