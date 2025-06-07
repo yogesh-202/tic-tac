@@ -3,12 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build && pnpm run server:build",
-    "start": "node dist/server.js & next start",
+    "dev": "concurrently \"next dev\" \"pnpm run server:dev\"",
+    "build": "next build && tsc --project tsconfig.server.json",
+    "start": "NODE_ENV=production concurrently \"next start\" \"node dist/server.js\"",
     "lint": "next lint",
-    "server:build": "tsc --project tsconfig.server.json",
     "server:dev": "tsx watch server.ts",
+    "server:build": "tsc --project tsconfig.server.json",
     "server:start": "node dist/server.js"
   },
   "dependencies": {
@@ -69,6 +69,7 @@
     "@types/node": "^22.15.30",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "concurrently": "^9.1.2",
     "postcss": "^8",
     "tailwindcss": "^3.4.17",
     "ts-node": "^10.9.2",

@@ -15,8 +15,12 @@ const httpServer = createServer((req, res) => {
 
 const io = new Server(httpServer, {
   cors: {
-    origin: ["http://localhost:3000", "https://tic-tac-toe-q7hg.onrender.com"],
-    methods: ["GET", "POST"]
+    // Allow both development and production URLs
+    origin: process.env.NODE_ENV === 'production' 
+      ? [process.env.NEXT_PUBLIC_APP_URL || '']  // Your deployed frontend URL
+      : ["http://localhost:3000"],
+    methods: ["GET", "POST"],
+    credentials: true
   }
 });
 
