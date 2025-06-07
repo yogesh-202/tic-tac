@@ -4,9 +4,10 @@ import { GameState } from "./types/game";
 
 const httpServer = createServer((req, res) => {
 
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
-  res.setHeader('Access-Control-Allow-Headers', '*');
+   res.setHeader("Access-Control-Allow-Origin", "https://tictactoe-frontend-production.up.railway.app");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "*");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
 
   // Health check endpoint
   if (req.url === '/') {
@@ -20,11 +21,19 @@ const httpServer = createServer((req, res) => {
 
 const io = new Server(httpServer, {
   cors: {
-    origin: "*",
-    methods: ["GET", "POST","OPTIONS"],
-    credentials: true,
-    allowedHeaders: ["*"]  // Allow all headers
-  }
+    origin: [
+      "https://tictactoe-frontend-p.n.up.railway.app",
+      "https://tictactoe-frontend-production.up.railway.app", 
+      "http://localhost:3000"
+    ],
+    methods: ["GET", "POST"],
+    credentials: true
+  },
+  // Add transport options
+  transports: ['websocket', 'polling'],
+  // Configure ping timeout and interval
+  pingTimeout: 60000,
+  pingInterval: 25000
 });
 
 

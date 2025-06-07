@@ -37,8 +37,25 @@ export default function TicTacToeGame() {
   const { toast } = useToast();
 
   useEffect(() => {
-    const socket = io(process.env.NEXT_PUBLIC_SOCKET_URL || "http://localhost:3001");
-    socketRef.current = socket;
+  const socket = io(process.env.NEXT_PUBLIC_SOCKET_URL || "http://localhost:3001", {
+    transports: ['websocket', 'polling'],
+    reconnection: true,
+    reconnectionAttempts: 5,
+    reconnectionDelay: 1000
+  });    
+  
+  socketRef.current = socket;
+  
+    socket.on("connect_error", (error) => {
+    console.error("Connection error:", error);
+    toast({
+      title: "Connection Error",
+      description: "Unable to connect to game server",
+      variant: "destructive",
+    });
+  });
+
+
 
     socket.on("gameCreated", (updatedGameState: GameState) => {
       console.log("Game created with state:", updatedGameState);
