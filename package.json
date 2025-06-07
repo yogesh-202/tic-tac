@@ -10,6 +10,7 @@
     "build": "pnpm build:client && pnpm build:server",
     "start:client": "next start",
     "start:server": "node dist/server.js",
+    "start": "pnpm start:server",
     "clean": "rimraf .next dist node_modules",
     "lint": "next lint"
   },
@@ -76,5 +77,9 @@
     "ts-node": "^10.9.2",
     "tsx": "^4.19.4",
     "typescript": "^5"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
   }
 }
