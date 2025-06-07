@@ -20,6 +20,7 @@ const io = new Server(httpServer, {
   }
 });
 
+
 interface GameRoom {
   gameState: GameState;
   players: string[];
@@ -43,6 +44,7 @@ const checkWinner = (board: (string | null)[]): string | null => {
   }
   return null;
 };
+
 
 const checkDraw = (board: (string | null)[]): boolean => {
   return board.every(cell => cell !== null);

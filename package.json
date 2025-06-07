@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build && pnpm run server:build",
-    "start": "node dist/server.js",
+    "start": "node dist/server.js & next start",
     "lint": "next lint",
     "server:build": "tsc --project tsconfig.server.json",
     "server:dev": "tsx watch server.ts",
