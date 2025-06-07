@@ -2,22 +2,25 @@
 name = "tictactoe-frontend"
   [service.build]
   builder = "NIXPACKS"
-  buildCommand = "pnpm install --frozen-lockfile && pnpm run build:client"
+  buildCommand = "pnpm install && pnpm run build:client"
   [service.deploy]
   startCommand = "pnpm start:client"
   restartPolicyType = "ON_FAILURE"
   restartPolicyMaxRetries = 10
   [service.variables]
   NODE_ENV = "production"
+  PORT = "3000"
+  NEXT_PUBLIC_SOCKET_URL = "${{Secrets.SOCKET_URL}}"
 
 [[service]]
 name = "tictactoe-socket"
   [service.build]
   builder = "NIXPACKS"
-  buildCommand = "pnpm install --frozen-lockfile && pnpm run build:server"
+  buildCommand = "pnpm install && pnpm run build:server"
   [service.deploy]
   startCommand = "pnpm start:server"
   restartPolicyType = "ON_FAILURE"
   restartPolicyMaxRetries = 10
   [service.variables]
   NODE_ENV = "production"
+  PORT = "3001"
