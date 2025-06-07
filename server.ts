@@ -14,13 +14,15 @@ const httpServer = createServer((req, res) => {
 });
 
 const io = new Server(httpServer, {
-   cors: {
+  cors: {
     origin: [
+      "https://tictactoe-frontend-p.n.up.railway.app",  // Add your frontend domain
       "https://tictactoe-frontend-production.up.railway.app",
-      "http://localhost:3000" // For local development
+      "http://localhost:3000"
     ],
     methods: ["GET", "POST"],
-    credentials: true
+    credentials: true,
+    allowedHeaders: ["*"]  // Allow all headers
   }
 });
 
