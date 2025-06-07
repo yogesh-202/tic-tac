@@ -7,7 +7,7 @@ const httpServer = createServer((req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
   res.setHeader('Access-Control-Allow-Headers', '*');
-  
+
   // Health check endpoint
   if (req.url === '/') {
     res.writeHead(200);
@@ -20,11 +20,8 @@ const httpServer = createServer((req, res) => {
 
 const io = new Server(httpServer, {
   cors: {
-    origin: [
-      "*",
-      "http://localhost:3000"
-    ],
-    methods: ["GET", "POST"],
+    origin: "*",
+    methods: ["GET", "POST","OPTIONS"],
     credentials: true,
     allowedHeaders: ["*"]  // Allow all headers
   }
