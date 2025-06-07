@@ -14,11 +14,11 @@ const httpServer = createServer((req, res) => {
 });
 
 const io = new Server(httpServer, {
-  cors: {
-    // Allow both development and production URLs
-    origin: process.env.NODE_ENV === 'production' 
-      ? [process.env.NEXT_PUBLIC_APP_URL || '']  // Your deployed frontend URL
-      : ["http://localhost:3000"],
+   cors: {
+    origin: [
+      "https://tictactoe-frontend-production.up.railway.app",
+      "http://localhost:3000" // For local development
+    ],
     methods: ["GET", "POST"],
     credentials: true
   }
