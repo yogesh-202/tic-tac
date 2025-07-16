@@ -11,7 +11,7 @@
     "server:build": "pnpm build:server",
     "start:client": "next start",
     "start:server": "node dist/server.js",
-    "start": "pnpm start:server",
+    "start": "pnpm start:server && pnpm start:client",
     "clean": "rimraf .next dist node_modules",
     "lint": "next lint"
   },
