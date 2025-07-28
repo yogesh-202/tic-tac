@@ -41,13 +41,13 @@ export default function TicTacToeGame() {
 
 
   useEffect(() => {
-  const socket = io(process.env.NEXT_PUBLIC_SOCKET_URL || "http://localhost:3001", {
+  const socket = io( process.env.NEXT_PUBLIC_SOCKET_URL || "http://localhost:3001", {
     transports: ['websocket', 'polling'],
     reconnection: true, 
     reconnectionAttempts: 5,  
     reconnectionDelay: 1000   
   });    
-  
+
   socketRef.current = socket;
   
     socket.on("connect_error", (error) => {
@@ -251,7 +251,7 @@ export default function TicTacToeGame() {
     );
   };
 
-  
+
   if (!gameState.gameId) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
