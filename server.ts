@@ -4,7 +4,7 @@ import { GameState } from "./types/game";
 
 const httpServer = createServer((req, res) => {
 
-  res.setHeader("Access-Control-Allow-Origin", "https://tic-tac-wheat-alpha.vercel.app/", "*");
+  res.setHeader("Access-Control-Allow-Origin", "https://tic-tac-wheat-alpha.vercel.app/");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "*");
   res.setHeader("Access-Control-Allow-Credentials", "true");
