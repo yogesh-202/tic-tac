@@ -23,7 +23,7 @@ const httpServer = createServer((req, res) => {
 const io = new Server(httpServer, {
   cors: {
     origin: [
-      "https://tictactoe-frontend-p.n.up.railway.app",
+      "https://tic-tac-wheat-alpha.vercel.app/",
       "https://tictactoe-frontend-production.up.railway.app", 
       "http://localhost:3000"
     ],
