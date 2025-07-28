@@ -4,12 +4,12 @@ import { GameState } from "./types/game";
 
 const httpServer = createServer((req, res) => {
 
-   res.setHeader("Access-Control-Allow-Origin", "https://tictactoe-frontend-production.up.railway.app");
+  res.setHeader("Access-Control-Allow-Origin", "https://tic-tac-wheat-alpha.vercel.app/");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "*");
   res.setHeader("Access-Control-Allow-Credentials", "true");
 
-  // Health check endpoint
+  
   if (req.url === '/') {
     res.writeHead(200);
     res.end('Server is running');
@@ -18,6 +18,7 @@ const httpServer = createServer((req, res) => {
   res.writeHead(404);
   res.end();
 });
+
 
 const io = new Server(httpServer, {
   cors: {
@@ -29,9 +30,9 @@ const io = new Server(httpServer, {
     methods: ["GET", "POST"],
     credentials: true
   },
-  // Add transport options
+  
   transports: ['websocket', 'polling'],
-  // Configure ping timeout and interval
+  
   pingTimeout: 60000,
   pingInterval: 25000
 });
@@ -44,7 +45,7 @@ interface GameRoom {
 
 const games = new Map<string, GameRoom>();
 
-// Helper functions for game logic
+
 const checkWinner = (board: (string | null)[]): string | null => {
   const winningCombos = [
     [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
@@ -84,6 +85,7 @@ io.on("connection", (socket) => {
     console.log(`Game created: ${gameId}`);
   });
 
+
   socket.on("joinGame", ({ gameId, player }) => {
     const game = games.get(gameId);
     if (!game) {
@@ -105,19 +107,19 @@ io.on("connection", (socket) => {
   });
 
   socket.on("makeMove", ({ gameId, playerId, index }) => {
-    const game = games.get(gameId);
+    const game = games.get(gameId); 
+
     if (!game) return;
 
     const { gameState } = game;
-    if (!gameState.isGameActive || gameState.board[index] !== null) return;
-
+    if (!gameState.isGameActive || gameState.board[index] !== null) return; 
     const player = gameState.players[playerId];
     if (!player || player.symbol !== gameState.currentPlayer) return;
 
-    // Make the move
+    
     gameState.board[index] = gameState.currentPlayer;
 
-    // Check for winner
+   
     const winner = checkWinner(gameState.board);
     if (winner) {
       gameState.winner = winner;
@@ -126,7 +128,7 @@ io.on("connection", (socket) => {
       return;
     }
 
-    // Check for draw
+    
     if (checkDraw(gameState.board)) {
       gameState.isDraw = true;
       gameState.isGameActive = false;
@@ -134,7 +136,7 @@ io.on("connection", (socket) => {
       return;
     }
 
-    // Switch turns
+   
     gameState.currentPlayer = gameState.currentPlayer === "X" ? "O" : "X";
     io.to(gameId).emit("moveMade", gameState);
   });
@@ -142,21 +144,21 @@ io.on("connection", (socket) => {
   socket.on("resetGame", ({ gameId }) => {
     const game = games.get(gameId);
     if (game) {
-      // Reset the game state
+      
       game.gameState.board = Array(9).fill(null);
       game.gameState.currentPlayer = "X";
       game.gameState.winner = null;
       game.gameState.isDraw = false;
       game.gameState.isGameActive = true;
 
-      // Broadcast to ALL players in the game room, including the sender
+      
       io.in(gameId).emit("gameReset", game.gameState);
       console.log(`Game ${gameId} reset - broadcasting to all players`);
     }
   });
 
   socket.on("chatMessage", ({ gameId, message }) => {
-    // Broadcast the chat message to all players in the game
+   
     io.to(gameId).emit("chatMessage", message);
   });
 
@@ -176,3 +178,5 @@ const PORT = parseInt(process.env.PORT || '3001', 10);
 httpServer.listen(PORT, '0.0.0.0', () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+

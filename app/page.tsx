@@ -4,6 +4,7 @@ import { io, Socket } from "socket.io-client";
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { toast }from "@/hooks/use-toast";
 import {
   Card,
   CardContent,
@@ -13,13 +14,13 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Copy, Users, Gamepad2, Trophy, RotateCcw } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
 import GameBoard from "@/components/game-board";
 import Chat from "@/components/chat";
 import type { GameState } from "@/types/game";
 
 export default function TicTacToeGame() {
   const socketRef = useRef<Socket | null>(null);
+  
   const [gameState, setGameState] = useState<GameState>({
     board: Array(9).fill(null),
     currentPlayer: "X",
@@ -29,19 +30,22 @@ export default function TicTacToeGame() {
     players: {},
     isGameActive: false,
   });
+
+
   const [winningLine, setWinningLine] = useState<number[] | null>(null);
   const [playerName, setPlayerName] = useState("");
   const [roomId, setRoomId] = useState("");
   const [isHost, setIsHost] = useState(false);
   const [playerId] = useState(() => Math.random().toString(36).substr(2, 9));
-  const { toast } = useToast();
+  
+
 
   useEffect(() => {
   const socket = io(process.env.NEXT_PUBLIC_SOCKET_URL || "http://localhost:3001", {
     transports: ['websocket', 'polling'],
-    reconnection: true,
-    reconnectionAttempts: 5,
-    reconnectionDelay: 1000
+    reconnection: true, 
+    reconnectionAttempts: 5,  
+    reconnectionDelay: 1000   
   });    
   
   socketRef.current = socket;
@@ -54,7 +58,6 @@ export default function TicTacToeGame() {
       variant: "destructive",
     });
   });
-
 
 
     socket.on("gameCreated", (updatedGameState: GameState) => {
@@ -82,10 +85,10 @@ export default function TicTacToeGame() {
       });
     });
 
-    socket.on("moveMade", (updatedGameState: GameState) => {
+    socket.on("moveMade", (updatedGameState: GameState) => { //ye Game state type define krta h ki staet mein kya kya hoga ...vallue nhi change ho rhi h 
       console.log("Move made, new state:", updatedGameState);
-      setGameState(updatedGameState);
-      if (updatedGameState.winner) {
+      setGameState(updatedGameState); ///ye updatedGameState server se aaya h from event "moveMade" in server.ts
+      if (updatedGameState.winner) { 
         // Calculate winning line when there's a winner
         const lines = [
           [0, 1, 2], [3, 4, 5], [6, 7, 8], // rows
@@ -158,7 +161,7 @@ export default function TicTacToeGame() {
   };
 
   const createGame = () => {
-    if (!playerName.trim()) {
+    if (!playerName.trim()) { 
       toast({
         title: "Name required",
         description: "Please enter your name to create a game",
@@ -248,6 +251,7 @@ export default function TicTacToeGame() {
     );
   };
 
+  
   if (!gameState.gameId) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4">

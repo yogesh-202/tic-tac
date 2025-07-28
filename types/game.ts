@@ -13,3 +13,6 @@ export interface GameState {
   players: Record<string, Player>;
   isGameActive: boolean;
 }
+
+
+

@@ -9,6 +9,7 @@ interface GameBoardProps {
   disabled?: boolean
 }
 
+
 export default function GameBoard({ board, onSquareClick, winningLine, disabled }: GameBoardProps) {
   return (
     <div className="grid grid-cols-3 gap-2 max-w-sm mx-auto">
@@ -31,3 +32,5 @@ export default function GameBoard({ board, onSquareClick, winningLine, disabled 
     </div>
   )
 }
+
+

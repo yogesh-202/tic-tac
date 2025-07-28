@@ -11,10 +11,11 @@
     "server:build": "pnpm build:server",
     "start:client": "next start",
     "start:server": "node dist/server.js",
-    "start": "pnpm start:server",
+    "start": "pnpm start:server && pnpm start:client",
     "clean": "rimraf .next dist node_modules",
     "lint": "next lint"
   },
+  
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
     "@radix-ui/react-accordion": "1.2.2",

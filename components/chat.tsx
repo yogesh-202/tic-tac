@@ -14,12 +14,14 @@ interface Message {
   timestamp: number
 }
 
+
 interface ChatProps {
   playerName: string
   socket: any
   gameId: string
   modalOnMobile?: boolean
 }
+
 
 export default function Chat({ playerName, socket, gameId, modalOnMobile }: ChatProps) {
   const [messages, setMessages] = useState<Message[]>([])
