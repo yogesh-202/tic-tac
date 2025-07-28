@@ -3,7 +3,7 @@ services:
     name: tictactoe-frontend
     env: node
     buildCommand: pnpm install && pnpm build
-    startCommand: pnpm start
+    startCommand: pnpm start:client
     envVars:
       - key: NEXT_PUBLIC_SOCKET_URL
         value: https://your-socket-server-url.com
@@ -12,7 +12,7 @@ services:
     name: tictactoe-socket
     env: node
     buildCommand: pnpm install && pnpm run server:build
-    startCommand: pnpm run server:start
+    startCommand: pnpm run start:server
     envVars:
       - key: PORT
         value: 3001
