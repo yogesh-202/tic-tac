@@ -119,7 +119,7 @@ multiplayer-tictactoe/
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](/read2.md) file for details.
+This project is licensed under the MIT License - see the [LICENSE](read2.md) file for details.
 
 ## Acknowledgments
 
